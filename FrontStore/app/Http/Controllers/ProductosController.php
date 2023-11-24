@@ -32,7 +32,20 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'titulo' => 'required',
+            'precio' => 'required|numeric|min:0|regex:/^\d+(\.\d{2})?$/',
+            'imagen' => 'required|image|mimes:jpg,png,jpeg'
+        ]);
+
+        $nombreOriginal=time().$request->file('imagen')->getClientOriginalName();
+        Productos::create([
+            'titulo'=>$request->titulo,
+            'precio'=>$request->precio,
+            'imagen'=>$nombreOriginal
+        ]);
+        $request->file('imagen')->storeAs('public/productos',$nombreOriginal);
+        return to_route('index');
     }
 
     /**

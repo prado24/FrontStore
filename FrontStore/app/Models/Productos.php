@@ -13,4 +13,8 @@ class Productos extends Model
         'precio',
         'imagen',
     ];
+    public function getUrlImagenAttribute(){
+        
+        return $this->imagen ? asset("storage/productos/{$this->imagen}"):null;
+    }
 }
