@@ -1,0 +1,3 @@
+<footer class="footer">
+    <p class="footer__texto">Front End Store - Todos los derechos Reservados 2022.</p>
+</footer>

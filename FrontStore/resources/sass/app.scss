@@ -1,0 +1,13 @@
+@import 'base/normalize';
+@import 'base/variables';
+@import 'base/globales';
+@import 'base/bloques';
+@import 'base/graficos';
+
+//layout
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/navegacion';
+
+//internas
+@import 'internas/nosotros';

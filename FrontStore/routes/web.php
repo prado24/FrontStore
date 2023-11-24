@@ -16,4 +16,11 @@ use App\Http\Controllers\ProductosController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+//index
 Route::get('/',[ProductosController::class,'index'])->name('index');
+
+//nosotros
+Route::get('/nosotros',function(){
+    return view('nosotro.index');
+})->name('nosotros');
