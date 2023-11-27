@@ -19,7 +19,7 @@
 
     <div class="bloques">
         <div class="bloque">
-            <img class="bloque__imagen" src="{{Vite::asset('/resources/img/icono_2.png')}}" alt="porque comprar">
+            <img class="bloque__imagen" src="{{Vite::asset('/resources/img/icono_1.png')}}" alt="porque comprar">
             <h3 class="bloque__titulo">El Mejor Precio</h3>
             <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin porta pretium felis</p>
         </div> <!--.bloque-->
