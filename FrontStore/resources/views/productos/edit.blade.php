@@ -1,15 +1,15 @@
 @extends('layouts.app_index')
 @section('container')
 <main class="container-create seccion">
-    <h1>Nuevo Producto</h1>
+    <h1>Editar Producto</h1>
 
-    <form class="formulario-crear" action="{{route('ProductosStore')}}" method="post" enctype="multipart/form-data">
-        @csrf
+    <form class="formulario-crear" action="{{route('ProductosUpdate',$productos->id)}}" method="post" enctype="multipart/form-data">
+        @csrf @method('PATCH')
         <fieldset>
             <legend>Información del Producto</legend>
 
             <label for="nombre">Titulo:</label>
-            <input type="text" placeholder="Titulo" id="titulo" name="titulo" value="{{old('titulo')}}">
+            <input type="text" placeholder="Titulo" id="titulo" name="titulo" value="{{old('titulo',$productos->titulo)}}">
             @error('titulo')
                 <div class="alerta">
                     {{$message}}
@@ -17,7 +17,7 @@
             @enderror
 
             <label for="resumen">Resumen:</label>
-            <textarea name="resumen" id="resumen" value="{{old('resumen')}}"></textarea>
+            <textarea name="resumen" id="resumen" value="{{old('resumen',$productos->resumen)}}">{{old('resumen',$productos->resumen)}}</textarea>
             @error('resumen')
                 <div class="alerta">
                     {{$message}}
@@ -25,7 +25,7 @@
             @enderror
 
             <label for="precio">Precio:</label>
-            <input type="text" name="precio" id="precio" value="{{old('precio')}}">
+            <input type="text" name="precio" id="precio" value="{{old('precio',$productos->precio)}}">
             @error('precio')
                 <div class="alerta">
                     {{$message}}
@@ -33,10 +33,10 @@
             @enderror
             
             <label for="imagen">Imagen:</label>
-            <input type="file" name="imagen" id="imagen" accept="image/*" onchange="mostrarVistaPrevia(event)">
+            <input type="file" name="imagen" id="imagen" accept="image/*" onchange="mostrarVistaPrevia(event)" value="{{old('imagen',$productos->imagen)}}">
             <div id="vista-previa">
-                @if(old('imagen_actual'))
-                    <img src="{{ old('imagen_actual') }}" alt="Vista previa">
+                @if(old('imagen_actual',$productos->imagen))
+                    <img src="{{old('imagen_actual',$productos->getUrlImagenAttribute())}}" alt="Vista previa">
                 @endif
             </div>
             @error('imagen')
@@ -44,7 +44,7 @@
                     {{ $message }}
                 </div>
             @enderror
-            <input type="hidden" name="imagen_actual" id="imagen_actual" value="{{ old('imagen_actual') }}">
+            <input type="hidden" name="imagen_actual" id="imagen_actual" value="{{old('imagen_actual',$productos->imagen)}}">
         </fieldset>
         <input type="submit" value="Guardar" class="boton-amarillo btn-create-blog">
         <a href="{{route('index')}}" class="boton-amarillo btn-create-blog">Cancelar</a>

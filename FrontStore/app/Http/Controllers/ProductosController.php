@@ -72,6 +72,8 @@ class ProductosController extends Controller
     public function edit(string $id)
     {
         //
+        $productos = Productos::find($id);
+        return view('productos.edit',['productos'=> $productos]);
     }
 
     /**
@@ -80,6 +82,45 @@ class ProductosController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'titulo' => 'required',
+            'precio' => 'required|numeric|min:0|regex:/^\d+(\.\d{2})?$/',
+            // 'descripcion' => 'required|min:15',
+            // 'imagen' => 'required|image|mimes:jpg,png,jpeg',
+            'resumen' => 'required|min:15'
+        ]);
+        if(empty($request->file('imagen')))
+        {
+            $productos = Productos::find($id);
+            if ($productos) {
+                $productos->titulo = $request->input('titulo');
+                $productos->precio=$request->input('precio');
+                $productos->resumen = $request->input('resumen');
+                // $entradas->save();
+            }
+        }else{
+            $request->validate([
+                'imagen'=> 'required|image|dimensions:min_width=,min_height=288.5|mimes:jpg,png,jpeg'
+            ]);
+            $productos = Productos::find($id);
+            if ($productos) {
+                $productos->titulo = $request->input('titulo');
+                $productos->precio=$request->input('precio');
+                $productos->resumen = $request->input('resumen');
+                //borrar archivo
+                Storage::delete('public/productos/'.$productos->imagen);
+                //obtener nombre del archivo
+                $nombreOriginal=time().$request->file('imagen')->getClientOriginalName();
+                //guardar nuevo nombre
+                $productos->imagen=$nombreOriginal;
+                //guardar archivo
+                $request->file('imagen')->storeAs('public/productos',$nombreOriginal);
+            }
+        }
+        $productos->save();
+        
+        // session()->flash('status','Se actualizo la entrada' . $request->titulo);
+        return to_route('index');
     }
 
     /**
@@ -88,5 +129,12 @@ class ProductosController extends Controller
     public function destroy(string $id)
     {
         //
+        $productos=Productos::find($id);
+        if($productos){
+            Storage::delete('public/productos/'.$productos->imagen);
+            $productos->delete();
+        }
+
+        return to_route('index');
     }
 }

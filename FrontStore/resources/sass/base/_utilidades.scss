@@ -27,5 +27,9 @@
 }
 .centrar-botones{
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
+    justify-content: center;
+}
+.espacio{
+    margin-right: 2rem;
 }

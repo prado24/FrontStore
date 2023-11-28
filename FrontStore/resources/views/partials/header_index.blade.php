@@ -14,7 +14,7 @@
     @auth
         <form action="{{route('Logout')}}" method="post">
             @csrf
-            <input type="submit" value="Cerrar sesión" class="btn-sesion">
+            <input type="submit" value="CERRAR SESIÓN" class="btn-sesion">
         </form>
     @endauth
 </nav>

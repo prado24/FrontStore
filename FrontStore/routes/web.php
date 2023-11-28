@@ -31,9 +31,12 @@ Route::get('/productos{productos}/show',[ProductosController::class,'show'])->na
 
 
 Route::middleware(['auth','admin'])->group(function(){
-    //Blog
+    //prodcutos
     Route::get('/productos/create',[ProductosController::class,'create'])->name('ProductosCreate');
     Route::post('/productos',[ProductosController::class,'store'])->name('ProductosStore');
+    Route::get('/productos/{productos}/edit', [ProductosController::class,'edit'])->name('ProductosEdit');
+    Route::patch('/productos/{productos}', [ProductosController::class,'update'])->name('ProductosUpdate');
+    Route::delete('/productos/{productos}', [ProductosController::class,'destroy'])->name('ProductosDestroy');
 });
 
 //auth
