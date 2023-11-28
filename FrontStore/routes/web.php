@@ -30,22 +30,10 @@ Route::get('/nosotros',function(){
 Route::get('/productos{productos}/show',[ProductosController::class,'show'])->name('ProductosShow');
 
 
-Route::middleware(['auth','Administrador'])->group(function(){
+Route::middleware(['auth','admin'])->group(function(){
     //Blog
     Route::get('/productos/create',[ProductosController::class,'create'])->name('ProductosCreate');
-    // Route::post('/blog',[EntradasController::class,'store'])->name('BlogStore');
-    // Route::get('/blog/{blog}/edit', [EntradasController::class,'edit'])->name('BlogEdit');
-    // Route::patch('/blog/{blog}', [EntradasController::class,'update'])->name('BlogUpdate');
-    // Route::delete('/blog/{blog}', [EntradasController::class,'destroy'])->name('BlogDestroy');
-
-    // //Anuncios
-    // Route::get('/anuncios/create',[AnunciosController::class,'create'])->name('AnunciosCreate');
-    // Route::post('/anuncios',[AnunciosController::class,'store'])->name('AnunciosStore');
-    // Route::get('/anuncios/{anuncio}/edit',[AnunciosController::class,'edit'])->name('AnunciosEdit');
-    // Route::patch('/anuncios/{anuncio}',[AnunciosController::class,'update'])->name('AnunciosUpdate');
-    // Route::delete('/anuncios/{anuncio}',[AnunciosController::class,'destroy'])->name('AnunciosDestroy');
-
-    
+    Route::post('/productos',[ProductosController::class,'store'])->name('ProductosStore');
 });
 
 //auth
