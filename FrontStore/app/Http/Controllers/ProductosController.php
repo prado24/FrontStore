@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Productos;
+use App\Models\Tallas;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,11 @@ class ProductosController extends Controller
     public function index()
     {
         $productos=Productos::all();
+        // $productos = Productos::with('tallas:id,nombre');
         return view('index',['productos'=>$productos]);
+
+        // $productos = producto::with('categoria:id,nombre')->paginate(5);
+        // return view('productos.index',['productos'=>$productos]);
     }
 
     /**
@@ -25,6 +30,7 @@ class ProductosController extends Controller
     public function create()
     {
         //
+        return view('productos.create');
     }
 
     /**
@@ -35,14 +41,16 @@ class ProductosController extends Controller
         $request->validate([
             'titulo' => 'required',
             'precio' => 'required|numeric|min:0|regex:/^\d+(\.\d{2})?$/',
-            'imagen' => 'required|image|mimes:jpg,png,jpeg'
+            'imagen' => 'required|image|mimes:jpg,png,jpeg',
+            'resumen' => 'required|min:15'
         ]);
 
         $nombreOriginal=time().$request->file('imagen')->getClientOriginalName();
         Productos::create([
             'titulo'=>$request->titulo,
             'precio'=>$request->precio,
-            'imagen'=>$nombreOriginal
+            'imagen'=>$nombreOriginal,
+            'resumen'=>$request->resumen
         ]);
         $request->file('imagen')->storeAs('public/productos',$nombreOriginal);
         return to_route('index');
@@ -53,7 +61,9 @@ class ProductosController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $productos=Productos::find($id);
+        $tallas = Tallas::all();
+        return view('productos.show',['productos'=>$productos, 'tallas'=>$tallas]);
     }
 
     /**

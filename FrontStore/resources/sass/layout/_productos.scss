@@ -1,0 +1,24 @@
+.producto {
+    background-color: $primarioOscuro;
+    padding: 1rem;
+    cursor: pointer;
+}
+.producto__nombre {
+    font-size: 2.5rem;
+}
+@media (min-width: 768px) {
+    .producto__nombre {
+        font-size: 4rem;
+    }
+}
+.producto__precio {
+    font-size: 2.8rem;
+    color: $secundario;
+}
+.producto__nombre,
+.producto__precio {
+    font-family: $fuente_principal;
+    margin: 1rem 0;
+    text-align: center;
+    line-height: 1.2;
+}

@@ -3,11 +3,16 @@
 @import 'base/globales';
 @import 'base/bloques';
 @import 'base/graficos';
+@import 'base/botones';
+@import 'base/utilidades';
+@import 'base/mixins';
 
 //layout
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/navegacion';
-
+@import 'layout/productos';
+@import 'layout/producto';
+@import 'layout/login';
 //internas
 @import 'internas/nosotros';
